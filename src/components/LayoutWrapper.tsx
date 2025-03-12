@@ -1,7 +1,7 @@
 "use client";
 
+import Sidebar from "@/components/Sidebar";
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
 
 interface LayoutWrapperProps {
     children: React.ReactNode;
