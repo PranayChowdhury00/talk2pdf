@@ -123,7 +123,7 @@ Talk2PDF is an AI-powered chat application that revolutionizes how users interac
 1. Clone the repository
 
 ```bash
-git clone https://github.com/sajjadislam523/talk2pdf.git
+git clone https://github.com/PranayChowdhury00/talk2pdf.git
 cd talk2pdf
 ```
 
