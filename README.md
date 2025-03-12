@@ -124,7 +124,7 @@ Talk2PDF is an AI-powered chat application that revolutionizes how users interac
 
 ```bash
 git clone https://github.com/sajjadislam523/talk2pdf.git
-cd AI-Chat-PDF-App
+cd talk2pdf
 ```
 
 2. Install dependencies
