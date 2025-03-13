@@ -19,7 +19,7 @@ export default function Signup() {
       <div className="bg-muted relative hidden lg:block w-full h-full">
         <Image
           src={logo}
-          alt="Talk2PDF Logo"
+          alt="Talk2PDF Signup page logo"
           layout="fill"
           objectFit="cover" // Ensures it covers the whole area
           priority
