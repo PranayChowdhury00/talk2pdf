@@ -1,4 +1,4 @@
-import { GalleryVerticalEnd } from "lucide-react";
+
 import { LoginForm } from "@/components/login-form";
 import logo from "@/app/assets/talk2PDF.jpg";
 import Image from "next/image";
