@@ -1,13 +1,8 @@
 import { Button } from "@/components/ui/button"; 
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import Link from "next/link";
-import React from "react";
-
-// Extend the Window interface to include showDirectoryPicker
-declare global {
-    interface Window {
-        showDirectoryPicker?: () => Promise<unknown>;
-    }
-}
+import React, { useState } from "react";
 
 interface SidebarProps {
     isOpen?: boolean;
@@ -15,33 +10,33 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
-    
+    const [folders, setFolders] = useState<string[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [newFolderName, setNewFolderName] = useState("");
+
     const handleNewChat = () => {
-        // Open file picker for PDFs
         const input = document.createElement("input");
         input.type = "file";
-        input.accept = "application/pdf"; // Only allow PDF files
+        input.accept = "application/pdf";
         input.onchange = (event) => {
             const file = (event.target as HTMLInputElement).files?.[0];
             if (file) {
                 const fileURL = URL.createObjectURL(file);
-                window.open(fileURL, "_blank"); // Open the selected PDF in a new tab
+                window.open(fileURL, "_blank");
             }
         };
         input.click();
     };
 
-    const handleNewFolder = async () => {
-        // Open directory picker (requires secure context like HTTPS)
-        if (window.showDirectoryPicker) {
-            try {
-                const dirHandle = await window.showDirectoryPicker();
-                console.log("Selected folder:", dirHandle); // Handle folder selection
-            } catch (err) {
-                console.error("Error selecting folder:", err);
-            }
-        } else {
-            alert("Your browser does not support the directory picker.");
+    const handleNewFolder = () => {
+        setIsModalOpen(true);
+    };
+
+    const createFolder = () => {
+        if (newFolderName.trim() !== "") {
+            setFolders([...folders, newFolderName.trim()]);
+            setNewFolderName("");
+            setIsModalOpen(false);
         }
     };
 
@@ -56,8 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
             )}
 
             {/* Sidebar */}
-            <div
-                className={`fixed lg:static inset-y-0 left-0 z-50 w-64 h-screen bg-[#1C1C1C] text-white flex flex-col
+            <div className={`fixed lg:static inset-y-0 left-0 z-50 w-64 h-screen bg-[#1C1C1C] text-white flex flex-col
                 transform transition-transform duration-300 ease-in-out lg:transform-none font-sans
                 ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
             >
@@ -102,39 +96,47 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                     </button>
                 </div>
 
-                {/* Chat History Section */}
-                <div className="flex-1 overflow-y-auto my-4">
-                    <div className="text-center space-y-4">
-                        <h1 className="text-xl font-semibold text-violet-500">
-                            Sign in for free to save your chat history
-                        </h1>
-                        <Button className="px-8 py-3 text-lg bg-violet-500 hover:bg-violet-600 text-white transition-colors">
-                            Sign Up
-                        </Button>
-                    </div>
+                {/* Folder List */}
+                <div className="flex-1 overflow-y-auto my-4 px-4">
+                    <h3 className="text-lg font-semibold">Folders</h3>
+                    <ul className="mt-2 space-y-2">
+                        {folders.map((folder, index) => (
+                            <li key={index} className="p-2 bg-gray-700 rounded-lg text-white">
+                                📂 {folder}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
 
-                {/* Bottom Section */}
+                {/* Chat History Section */}
                 <div className="p-4 border-t border-white/10">
-                    <div className="flex flex-col space-y-4">
-                        {/* Language Selector */}
-                        <div className="flex items-center space-x-2 text-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM15.917 9h-1.946c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9z" clipRule="evenodd" />
-                            </svg>
-                            <span>EN</span>
-                        </div>
-
-                        {/* AI Scholar Link */}
-                        <Link href="/ai-scholar" className="flex items-center space-x-2 text-sm hover:text-purple-400 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z" />
-                            </svg>
-                            <span>AI Scholar</span>
-                        </Link>
-                    </div>
+                    <h1 className="text-xl font-semibold text-violet-500 text-center">
+                        Sign in for free to save your chat history
+                    </h1>
+                    <Button className="w-full mt-4 px-8 py-3 text-lg bg-violet-500 hover:bg-violet-600 text-white transition-colors">
+                        Sign Up
+                    </Button>
                 </div>
             </div>
+
+            {/* Folder Name Modal */}
+            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Create New Folder</DialogTitle>
+                    </DialogHeader>
+                    <Input
+                        type="text"
+                        placeholder="Enter folder name"
+                        value={newFolderName}
+                        onChange={(e) => setNewFolderName(e.target.value)}
+                    />
+                    <DialogFooter>
+                        <Button onClick={createFolder}>Create</Button>
+                        <Button variant="secondary" onClick={() => setIsModalOpen(false)}>Cancel</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </>
     );
 };
