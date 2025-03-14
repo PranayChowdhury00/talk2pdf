@@ -40,6 +40,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
         }
     };
 
+    const deleteFolder = (index: number) => {
+        const updatedFolders = folders.filter((_, i) => i !== index);
+        setFolders(updatedFolders);
+    };
+
     return (
         <>
             {/* Mobile Overlay */}
@@ -82,7 +87,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
                         </svg>
-                        <span>New Chat</span>
+                        <span>New Chat (Open PDF)</span>
                     </button>
 
                     <button
@@ -101,8 +106,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                     <h3 className="text-lg font-semibold">Folders</h3>
                     <ul className="mt-2 space-y-2">
                         {folders.map((folder, index) => (
-                            <li key={index} className="p-2 bg-gray-700 rounded-lg text-white">
-                                📂 {folder}
+                            <li key={index} className="flex justify-between items-center p-2 bg-gray-700 rounded-lg text-white">
+                                <span>📂 {folder}</span>
+                                <button 
+                                    onClick={() => deleteFolder(index)} 
+                                    className="text-red-400 hover:text-red-600 transition"
+                                >
+                                    🗑️
+                                </button>
                             </li>
                         ))}
                     </ul>
