@@ -1,7 +1,7 @@
 // import { GalleryVerticalEnd } from "lucide-react";
 
 // ----------------------------------------------------SignUp page-------------------------------------------------------------------
-import { LoginForm } from "@/components/login-form";
+import { SignupForm } from "@/components/signup-form";
 import Image from "next/image";
 import logo from "@/app/assets/PDF.jpg";
 
@@ -14,17 +14,24 @@ export default function Signup() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <LoginForm />
+            {/* <LoginForm /> */}
+            <SignupForm></SignupForm>
           </div>
         </div>
       </div>
       <div className="bg-muted relative hidden lg:block w-full h-full">
-        <Image
+        {/* <Image
           src={logo}
           alt="Talk2PDF Signup Logo"
           layout="fill"
           objectFit="cover" // Ensures it covers the whole area
           priority
+        /> */}
+        <Image
+          src={logo}
+          fill // ✅ Replaces "layout='fill'"
+          style={{ objectFit: "cover" }} // ✅ Replaces "objectFit='cover'"
+          alt="Description"
         />
       </div>
     </div>
