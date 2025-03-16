@@ -1,8 +1,10 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-
+import Link from "next/link";
 import { FaGoogle } from "react-icons/fa";
 
 export function LoginForm({
@@ -18,28 +20,54 @@ export function LoginForm({
                 </p>
             </div>
             <div className="grid gap-6">
-                <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
+                {/* Floating Email Input */}
+                <div className="relative">
                     <Input
                         id="email"
                         type="email"
-                        placeholder="xxxx@gmail.com"
+                        placeholder=" " // empty placeholder triggers the peer selectors
                         required
+                        className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
                     />
+                    <Label
+                        htmlFor="email"
+                        className="absolute left-3 top-3 text-gray-500 transition-all duration-200 
+                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                        peer-focus:-top-3  px-2 peer-focus:bg-muted"
+                    >
+                        Email
+                    </Label>
                 </div>
-                <div className="grid gap-2">
-                    <div className="flex items-center">
-                        <Label htmlFor="password">Password</Label>
-                        <a
+                {/* Floating Password Input with Forgot Link */}
+                <div className="relative">
+                    <Input
+                        id="password"
+                        type="password"
+                        placeholder=" "
+                        required
+                        className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
+                    />
+                    <Label
+                        htmlFor="password"
+                        className="absolute left-3 top-3 text-gray-500 transition-all duration-200 
+                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                        peer-focus:-top-3  px-2 peer-focus:bg-muted"
+                    >
+                        Password
+                    </Label>
+                    <div className="absolute inset-y-0 right-3 flex items-center">
+                        <Link
                             href="#"
-                            className="ml-auto text-sm underline-offset-4 hover:underline"
+                            className="text-sm text-violet-600 hover:underline"
                         >
-                            Forgot your password?
-                        </a>
+                            Forgot?
+                        </Link>
                     </div>
-                    <Input id="password" type="password" required />
                 </div>
-                <Button type="submit" className="w-full bg-violet-500">
+                <Button
+                    type="submit"
+                    className="w-full bg-violet-500 hover:bg-violet-600"
+                >
                     Login
                 </Button>
                 <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
@@ -47,19 +75,22 @@ export function LoginForm({
                         Or continue with
                     </span>
                 </div>
-                <Button variant="outline" className="w-full">
-                    <FaGoogle />
-                    Login with Google
+                <Button
+                    variant="outline"
+                    className="w-full flex items-center justify-center gap-2"
+                >
+                    <FaGoogle className="h-5 w-5" />
+                    <span>Login with Google</span>
                 </Button>
             </div>
             <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <a
+                <Link
                     href="/signup"
                     className="underline underline-offset-4 text-violet-500"
                 >
                     Sign up
-                </a>
+                </Link>
             </div>
         </form>
     );

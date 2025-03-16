@@ -13,7 +13,7 @@ export function SignupForm({
     return (
         <form
             className={cn(
-                "flex flex-col gap-8 px-4 py-6 rounded-lg bg-white",
+                "flex flex-col gap-8 px-4 py-6 rounded-lg bg-muted",
                 className
             )}
             {...props}
@@ -28,49 +28,57 @@ export function SignupForm({
             </div>
             <div className="flex flex-col gap-6">
                 <div className="relative">
-                    <label
-                        htmlFor="email"
-                        className="text-sm font-medium text-gray-700"
-                    >
-                        Email Address
-                    </label>
                     <Input
                         id="email"
                         type="email"
-                        placeholder=""
                         required
-                        aria-required="true"
+                        className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
+                        placeholder=" " // Set an empty placeholder so that the label shows up
                     />
-                </div>
-                <div className="flex flex-col gap-4">
                     <label
-                        htmlFor="password"
-                        className="text-sm font-medium text-gray-700"
+                        htmlFor="email"
+                        className="absolute left-3 top-3 text-gray-500 transition-all duration-200 
+               peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+               peer-focus:-top-3  px-2 peer-focus:bg-muted"
                     >
-                        Password
+                        Email Address
                     </label>
+                </div>
+                <div className="relative">
                     <Input
                         id="password"
                         type="password"
-                        placeholder="Enter your password"
+                        placeholder=""
                         required
                         aria-required="true"
+                        className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
                     />
-                </div>
-                <div className="flex flex-col gap-4">
                     <label
-                        htmlFor="confirmPassword"
-                        className="text-sm font-medium text-gray-700"
+                        htmlFor="password"
+                        className="absolute left-3 top-3 text-gray-500 transition-all duration-200 
+                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                        peer-focus:-top-3  px-2 peer-focus:bg-muted"
                     >
-                        Confirm Password
+                        Password
                     </label>
+                </div>
+                <div className="relative">
                     <Input
                         id="confirmPassword"
                         type="password"
-                        placeholder="Confirm your password"
+                        placeholder=""
                         required
                         aria-required="true"
+                        className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
                     />
+                    <label
+                        htmlFor="confirmPassword"
+                        className="absolute left-3 top-3 text-gray-500 transition-all duration-200 
+               peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+               peer-focus:-top-3  px-2 peer-focus:bg-muted"
+                    >
+                        Confirm Password
+                    </label>
                 </div>
                 <div className="text-right">
                     <Link
@@ -90,7 +98,7 @@ export function SignupForm({
                     <span className="absolute inset-0 flex items-center">
                         <span className="w-full border-t border-gray-300" />
                     </span>
-                    <span className="relative bg-white px-2 text-gray-500">
+                    <span className="relative bg-muted px-2 text-gray-500">
                         Or continue with
                     </span>
                 </div>
