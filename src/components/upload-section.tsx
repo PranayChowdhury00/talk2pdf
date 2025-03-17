@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/lib/supabaseClient";
 import { UploadCloud } from "lucide-react";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { supabase } from "@/lib/supabaseClient";
 
 export default function UploadSection() {
     const [files, setFiles] = useState<File[]>([]);
@@ -32,7 +32,7 @@ export default function UploadSection() {
         for (const file of files) {
             const filePath = `pdfs/${Date.now()}_${file.name}`; // Unique filename
 
-            const { data, error } = await supabase.storage
+            const { error } = await supabase.storage
                 .from("pdfs")
                 .upload(filePath, file, {
                     cacheControl: "3600",
@@ -61,7 +61,9 @@ export default function UploadSection() {
             <div
                 {...getRootProps()}
                 className={`w-full p-10 text-center cursor-pointer rounded-md ${
-                    isDragActive ? "border-blue-500 bg-blue-100" : "border-gray-300"
+                    isDragActive
+                        ? "border-blue-500 bg-blue-100"
+                        : "border-gray-300"
                 } border-2 border-dashed transition`}
             >
                 <input {...getInputProps()} />
@@ -69,7 +71,9 @@ export default function UploadSection() {
                 {isDragActive ? (
                     <p className="text-blue-600">Drop the PDF here...</p>
                 ) : (
-                    <p className="text-gray-500">Drag & drop a PDF here, or click to select one</p>
+                    <p className="text-gray-500">
+                        Drag & drop a PDF here, or click to select one
+                    </p>
                 )}
             </div>
 
@@ -77,7 +81,10 @@ export default function UploadSection() {
             {files.length > 0 && (
                 <ul className="mt-4 w-full text-left">
                     {files.map((file, index) => (
-                        <li key={index} className="p-2 bg-gray-100 rounded-md my-2 text-sm">
+                        <li
+                            key={index}
+                            className="p-2 bg-gray-100 rounded-md my-2 text-sm"
+                        >
                             {file.name}
                         </li>
                     ))}
@@ -102,7 +109,11 @@ export default function UploadSection() {
                     <ul className="text-sm text-blue-600">
                         {uploadedUrls.map((url, index) => (
                             <li key={index}>
-                                <a href={url} target="_blank" rel="noopener noreferrer">
+                                <a
+                                    href={url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     {url}
                                 </a>
                             </li>
