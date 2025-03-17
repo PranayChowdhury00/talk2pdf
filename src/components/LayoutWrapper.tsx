@@ -1,5 +1,6 @@
 "use client";
 
+
 import Sidebar from "@/components/Sidebar";
 import React, { useState } from "react";
 
@@ -11,7 +12,7 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
-        <div className="flex h-screen relative">
+        <div className="flex flex-col h-screen relative">
             {/* Mobile Menu Button */}
             <button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -43,14 +44,18 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
                 </svg>
             </button>
 
-            {/* Sidebar */}
-            <Sidebar
-                isOpen={isSidebarOpen}
-                onClose={() => setIsSidebarOpen(false)}
-            />
+            {/* Layout Container */}
+            
+            
+                    {/* Sidebar */}
+                <Sidebar
+                    isOpen={isSidebarOpen}
+                    onClose={() => setIsSidebarOpen(false)}
+                />
 
-            {/* Main Content */}
-            <main className="flex-1 overflow-auto lg:ml-0">{children}</main>
+                {/* Main Content */}
+                <main className="flex-1 overflow-auto">{children}</main>
+                
         </div>
     );
 };
