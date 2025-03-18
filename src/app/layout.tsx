@@ -1,4 +1,5 @@
 import LayoutWrapper from "@/components/LayoutWrapper";
+import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -24,11 +25,18 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <LayoutWrapper>{children}</LayoutWrapper>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <LayoutWrapper>{children}</LayoutWrapper>
+                </ThemeProvider>
             </body>
         </html>
     );
