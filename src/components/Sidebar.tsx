@@ -37,7 +37,7 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
-    const { setTheme, theme } = useTheme();
+    const { setTheme } = useTheme();
     const [folders, setFolders] = React.useState<string[]>([]);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [newFolderName, setNewFolderName] = React.useState("");
