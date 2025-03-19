@@ -12,7 +12,7 @@ export default function Signup() {
                 <div className="flex flex-1 items-center justify-center">
                     <div className="w-full">
                         {/* <LoginForm /> */}
-                        <SignupForm></SignupForm>
+                        <SignupForm />
                     </div>
                 </div>
             </div>

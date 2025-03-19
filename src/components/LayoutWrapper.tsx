@@ -2,7 +2,10 @@
 
 
 import Sidebar from "@/components/Sidebar";
-import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+import type React from "react";
+import { useState } from "react";
 
 interface LayoutWrapperProps {
     children: React.ReactNode;
@@ -14,35 +17,15 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
     return (
         <div className="flex flex-col h-screen relative">
             {/* Mobile Menu Button */}
-            <button
+            <Button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-gray-800 text-white"
+                className="lg:hidden fixed top-4 left-4 z-50 p-2 h-10 w-10 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-md"
+                size="icon"
+                variant="outline"
                 aria-label="Toggle Sidebar"
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    {isSidebarOpen ? (
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    ) : (
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 6h16M4 12h16M4 18h16"
-                        />
-                    )}
-                </svg>
-            </button>
+                <Menu className="h-5 w-5" />
+            </Button>
 
             {/* Layout Container */}
             
@@ -53,9 +36,14 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
                     onClose={() => setIsSidebarOpen(false)}
                 />
 
+<<<<<<< HEAD
                 {/* Main Content */}
                 <main className="flex-1 overflow-auto">{children}</main>
                 
+=======
+            {/* Main Content */}
+            <main className="flex-1 overflow-auto">{children}</main>
+>>>>>>> 16e50aa7ef0ca9d8f6a8819fd90059c0655c2f56
         </div>
     );
 };
