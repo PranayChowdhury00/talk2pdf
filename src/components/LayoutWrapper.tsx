@@ -1,6 +1,5 @@
 "use client";
 
-
 import Sidebar from "@/components/Sidebar";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
@@ -15,7 +14,7 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
-        <div className="flex flex-col h-screen relative">
+        <div className="flex h-screen relative">
             {/* Mobile Menu Button */}
             <Button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -27,23 +26,14 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
                 <Menu className="h-5 w-5" />
             </Button>
 
-            {/* Layout Container */}
-            
-            
-                    {/* Sidebar */}
-                <Sidebar
-                    isOpen={isSidebarOpen}
-                    onClose={() => setIsSidebarOpen(false)}
-                />
+            {/* Sidebar */}
+            <Sidebar
+                isOpen={isSidebarOpen}
+                onClose={() => setIsSidebarOpen(false)}
+            />
 
-<<<<<<< HEAD
-                {/* Main Content */}
-                <main className="flex-1 overflow-auto">{children}</main>
-                
-=======
             {/* Main Content */}
             <main className="flex-1 overflow-auto">{children}</main>
->>>>>>> 16e50aa7ef0ca9d8f6a8819fd90059c0655c2f56
         </div>
     );
 };
