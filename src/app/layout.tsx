@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./Providers";
+import SessionWrapper from "./_app";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,21 +27,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+    <SessionWrapper>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <LayoutWrapper>
-            <AuthProvider>{children}</AuthProvider>
-          </LayoutWrapper>
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <LayoutWrapper>
+              <AuthProvider>{children}</AuthProvider>
+            </LayoutWrapper>
+          </ThemeProvider>
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }

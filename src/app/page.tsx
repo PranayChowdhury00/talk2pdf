@@ -15,7 +15,7 @@ export default function Home() {
         </div>
         <div className="">
           <Testimonials></Testimonials>
-                  </div>
+        </div>
         <Footer></Footer>
       </div>
     </>

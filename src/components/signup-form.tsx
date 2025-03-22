@@ -7,8 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
-// import User from "./../models/user";
-// import User from "./../lib/mongodb"
 
 export function SignupForm({
   className,
@@ -123,16 +121,7 @@ export function SignupForm({
             className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
           />
         </div>
-        {/* <div className="relative">
-          <Input
-            id="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            required
-            aria-required="true"
-            className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
-          />
-        </div> */}
+
         {error && (
           <div className="text-left w-fit py-1 px-3 rounded-md text-sm text-white bg-red-500">
             {error}
