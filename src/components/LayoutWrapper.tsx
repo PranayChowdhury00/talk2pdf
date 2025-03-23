@@ -35,15 +35,8 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
                     isOpen={isSidebarOpen}
                     onClose={() => setIsSidebarOpen(false)}
                 />
-
-<<<<<<< HEAD
-                {/* Main Content */}
-                <main className="flex-1 overflow-auto">{children}</main>
-                
-=======
             {/* Main Content */}
             <main className="flex-1 overflow-auto">{children}</main>
->>>>>>> 16e50aa7ef0ca9d8f6a8819fd90059c0655c2f56
         </div>
     );
 };
