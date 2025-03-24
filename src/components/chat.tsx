@@ -78,7 +78,7 @@ export function Chat() {
   };
 
   return (
-    <div className="rounded-2xl border h-[75vh] flex flex-col justify-between">
+    <div className="rounded-2xl border h-[95vh] flex flex-col justify-between">
       <div className="p-6 overflow-auto" ref={containerRef}>
         {messages.map(({ id, role, content }: Message) => (
           <ChatLine key={id} role={role} content={content} />
