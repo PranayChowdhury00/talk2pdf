@@ -1,5 +1,5 @@
 export const fetchDeepSeek = async (userMessage: string) => {
-    const API_KEY = process.env.DEEPSEEK_API_KEY;
+    const API_KEY = process.env.OPENROUTER_API_KEY;
     const API_URL = "https://openrouter.ai/api/v1/chat/completions";
   
     try {
@@ -10,7 +10,7 @@ export const fetchDeepSeek = async (userMessage: string) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "mistralai/mistral-small-3.1-24b-instruct:free",
+          model: "google/gemma-3-4b-it:free",
           messages: [
             { role: "system", content: "You are an AI assistant." },
             { role: "user", content: userMessage }
