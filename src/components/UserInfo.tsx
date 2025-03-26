@@ -2,6 +2,10 @@
 
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
+import { IoMdLogOut } from "react-icons/io";
+import { BiLogOut } from "react-icons/bi";
+import Image from "next/image";
+import profile from "../../public/profile.jpg";
 
 export default function UserInfo() {
   const { data: session, status } = useSession();
@@ -12,15 +16,25 @@ export default function UserInfo() {
 
   return (
     <div className="p-4">
+      <div>
+        <Image
+          src={session?.user?.image || profile}
+          width={60}
+          height={60}
+          alt="User profile"
+          className="rounded-full"
+        />
+      </div>
       <div className="font-bold ">
-        Name: <span>{session?.user?.name}</span> <br />
-        Email: <span>{session?.user?.email}</span>
+        Name: <span className="text-violet-500">{session?.user?.name}</span>{" "}
+        <br />
+        {/* Email: <span>{session?.user?.email}</span> */}
       </div>
       <Button
         onClick={() => signOut()}
-        className="bg-red-500 text-white font-bold mt-2"
+        className="bg-red-500 text-white font-bold mt-2 w-full"
       >
-        Log Out
+        <BiLogOut /> Log Out
       </Button>
     </div>
   );

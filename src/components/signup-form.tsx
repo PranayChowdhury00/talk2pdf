@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
+import { signIn } from "next-auth/react";
 
 export function SignupForm({
   className,
@@ -62,7 +63,7 @@ export function SignupForm({
       if (res.ok) {
         const form = e.target as HTMLFormElement;
         form.reset();
-        router.push("/");
+        router.push("/login");
 
         alert("User registered successfully!");
       } else {
@@ -147,13 +148,30 @@ export function SignupForm({
             Or continue with
           </span>
         </div>
+
+        {/* Google signIn */}
+
         <Button
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: "/", // 👈 redirect after successful login
+            })
+          }
           variant="outline"
-          className="w-full flex items-center justify-center gap-2"
+          className="w-full flex items-center justify-center gap-2 cursor-pointer"
         >
           <FaGoogle className="h-5 w-5" />
           <span>Continue with Google</span>
         </Button>
+
+        {/* <Button
+          onClick={() => signIn("google")}
+          variant="outline"
+          className="w-full flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <FaGoogle className="h-5 w-5" />
+          <span>Continue with Google</span>
+        </Button> */}
       </div>
       <div className="mt-4 text-center text-sm text-gray-600">
         Already have an account?{" "}

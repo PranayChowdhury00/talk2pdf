@@ -91,7 +91,7 @@ export function LoginForm({
 
         <Button
           type="submit"
-          className="w-full bg-violet-500 hover:bg-violet-600"
+          className="w-full bg-violet-500 hover:bg-violet-600 cursor-pointer"
         >
           Login
         </Button>
@@ -100,9 +100,22 @@ export function LoginForm({
             Or continue with
           </span>
         </div>
-        <Button
+        {/* <Button
+          onClick={() => signIn("google")}
           variant="outline"
-          className="w-full flex items-center justify-center gap-2"
+          className="w-full flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <FaGoogle className="h-5 w-5" />
+          <span>Login with Google</span>
+        </Button> */}
+        <Button
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: "/", // 👈 redirect after successful login
+            })
+          }
+          variant="outline"
+          className="w-full flex items-center justify-center gap-2 cursor-pointer"
         >
           <FaGoogle className="h-5 w-5" />
           <span>Login with Google</span>
