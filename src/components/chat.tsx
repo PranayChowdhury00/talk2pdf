@@ -6,15 +6,12 @@ import { ChatLine } from "./chat-line";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Spinner } from "./ui/spinner";
-import { useRef, useState } from "react";
-
 
 // Message Type (Since we're not using the external package)
 export interface Message {
-  id: string;
-  role: "user" | "assistant";
-  content: string;
-
+    id: string;
+    role: "user" | "assistant";
+    content: string;
 }
 
 export function Chat() {
@@ -50,43 +47,61 @@ export function Chat() {
             return "Error processing your request.";
         }
     };
-    setMessages((prev) => [...prev, newUserMessage]);
-    setInput("");
-    setIsLoading(true);
 
-    // Get AI Response
-    const aiResponse = await fetchAIResponse(input);
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!input.trim()) return;
 
-    // Add AI message
-    const newAIMessage: Message = {
-      id: Date.now().toString(),
-      role: "assistant",
-      content: aiResponse,
+        // Create new user message
+        const newUserMessage: Message = {
+            id: Date.now().toString(),
+            role: "user",
+            content: input,
+        };
+
+        // Add user message to chat
+        setMessages((prev) => [...prev, newUserMessage]);
+        setInput("");
+        setIsLoading(true);
+
+        // Get AI Response
+        const aiResponse = await fetchAIResponse(input);
+
+        // Add AI message
+        const newAIMessage: Message = {
+            id: Date.now().toString(),
+            role: "assistant",
+            content: aiResponse,
+        };
+        setMessages((prev) => [...prev, newAIMessage]);
+        setIsLoading(false);
     };
-    setMessages((prev) => [...prev, newAIMessage]);
-    setIsLoading(false);
-  };
 
-  return (
-    <div className="rounded-2xl border h-[95vh] flex flex-col justify-between">
-      <div className="p-6 overflow-auto" ref={containerRef}>
-        {messages.map(({ id, role, content }: Message) => (
-          <ChatLine key={id} role={role} content={content} sources={[]} />
-        ))}
-      </div>
+    return (
+        <div className="rounded-2xl border h-[95vh] flex flex-col justify-between">
+            <div className="p-6 overflow-auto" ref={containerRef}>
+                {messages.map(({ id, role, content }: Message) => (
+                    <ChatLine
+                        key={id}
+                        role={role}
+                        content={content}
+                        sources={[]}
+                    />
+                ))}
+            </div>
 
-      <form onSubmit={handleSubmit} className="p-4 flex clear-both">
-        <Input
-          value={input}
-          placeholder="Type to chat with AI..."
-          onChange={(e) => setInput(e.target.value)}
-          className="mr-2"
-        />
+            <form onSubmit={handleSubmit} className="p-4 flex clear-both">
+                <Input
+                    value={input}
+                    placeholder="Type to chat with AI..."
+                    onChange={(e) => setInput(e.target.value)}
+                    className="mr-2"
+                />
 
-        <Button type="submit" className="w-24" disabled={isLoading}>
-          {isLoading ? <Spinner /> : "Ask"}
-        </Button>
-      </form>
-    </div>
-  );
+                <Button type="submit" className="w-24" disabled={isLoading}>
+                    {isLoading ? <Spinner /> : "Ask"}
+                </Button>
+            </form>
+        </div>
+    );
 }
