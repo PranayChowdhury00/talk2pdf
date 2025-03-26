@@ -14,6 +14,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 // import { Message } from "ai/react";
+import { Message } from "./chat";
 import ReactMarkdown from "react-markdown";
 import { formattedText } from "@/lib/utils";
 

@@ -8,7 +8,7 @@ import { Spinner } from "./ui/spinner";
 import { useRef, useState } from "react";
 
 // Message Type (Since we're not using the external package)
-interface Message {
+export interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
