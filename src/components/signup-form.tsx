@@ -3,168 +3,172 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { signIn } from "next-auth/react";
 
 export function SignupForm({
-  className,
-  ...props
+    className,
+    ...props
 }: React.ComponentProps<"form">) {
-  // state info
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+    // state info
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-  const router = useRouter();
+    const router = useRouter();
 
-  // Submit info
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    // Submit info
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-    if (!name || !email || !password) {
-      setError("All Input field must be fill-up.");
-      return;
-    }
+        if (!name || !email || !password) {
+            setError("All Input field must be fill-up.");
+            return;
+        }
 
-    // API call
-    try {
-      const resUserExist = await fetch("api/userExist", {
-        method: "POST",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-        }),
-      });
+        // API call
+        try {
+            const resUserExist = await fetch("api/userExist", {
+                method: "POST",
+                headers: {
+                    "content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email,
+                }),
+            });
 
-      const { user } = await resUserExist.json();
+            const { user } = await resUserExist.json();
 
-      if (user) {
-        setError("User already exist.");
-        return;
-      }
+            if (user) {
+                setError("User already exist.");
+                return;
+            }
 
-      const res = await fetch("api/register", {
-        method: "POST",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
-      });
-      if (res.ok) {
-        const form = e.target as HTMLFormElement;
-        form.reset();
-        router.push("/login");
+            const res = await fetch("api/register", {
+                method: "POST",
+                headers: {
+                    "content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password,
+                }),
+            });
+            if (res.ok) {
+                const form = e.target as HTMLFormElement;
+                form.reset();
+                router.push("/login");
 
-        alert("User registered successfully!");
-      } else {
-        alert("User registration failed.");
-      }
-    } catch (err) {
-      alert("Error during registration:" + err);
-    }
-  };
+                alert("User registered successfully!");
+            } else {
+                alert("User registration failed.");
+            }
+        } catch (err) {
+            alert("Error during registration:" + err);
+        }
+    };
 
-  return (
-    <form
-      onSubmit={handleSubmit}
-      className={cn(
-        "flex flex-col gap-8 px-4 py-6 rounded-lg bg-muted",
-        className
-      )}
-      {...props}
-      noValidate
-    >
-      <div className="flex flex-col items-center text-center">
-        <h1 className="text-3xl font-bold text-gray-800 ">Sign Up</h1>
-        <p className="mt-2 text-sm text-gray-600">
-          Create your account by entering your email and password below.
-        </p>
-      </div>
-      <div className="flex flex-col gap-6">
-        <div className="relative">
-          <Input
-            id="name"
-            onChange={(e) => setName(e.target.value)}
-            type="name"
-            required
-            className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
-            placeholder="Enter Full Name"
-          />
-        </div>
-        <div className="relative">
-          <Input
-            id="email"
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            required
-            className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
-            placeholder="Enter Email Address"
-          />
-        </div>
-        <div className="relative">
-          <Input
-            id="password"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter Password"
-            required
-            aria-required="true"
-            className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
-          />
-        </div>
-
-        {error && (
-          <div className="text-left w-fit py-1 px-3 rounded-md text-sm text-white bg-red-500">
-            {error}
-          </div>
-        )}
-
-        <div className="text-right">
-          <Link href="#" className="text-sm text-violet-600 hover:underline">
-            Forgot your password?
-          </Link>
-        </div>
-        <Button
-          type="submit"
-          className="w-full cursor-pointer bg-violet-500 hover:bg-violet-600"
+    return (
+        <form
+            onSubmit={handleSubmit}
+            className={cn(
+                "flex flex-col gap-8 px-4 py-6 rounded-lg bg-muted",
+                className
+            )}
+            {...props}
+            noValidate
         >
-          Sign Up
-        </Button>
-        <div className="relative text-center text-sm">
-          <span className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-gray-300" />
-          </span>
-          <span className="relative bg-muted px-2 text-gray-500">
-            Or continue with
-          </span>
-        </div>
+            <div className="flex flex-col items-center text-center">
+                <h1 className="text-3xl font-bold text-gray-800 ">Sign Up</h1>
+                <p className="mt-2 text-sm text-gray-600">
+                    Create your account by entering your email and password
+                    below.
+                </p>
+            </div>
+            <div className="flex flex-col gap-6">
+                <div className="relative">
+                    <Input
+                        id="name"
+                        onChange={(e) => setName(e.target.value)}
+                        type="name"
+                        required
+                        className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
+                        placeholder="Enter Full Name"
+                    />
+                </div>
+                <div className="relative">
+                    <Input
+                        id="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        type="email"
+                        required
+                        className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
+                        placeholder="Enter Email Address"
+                    />
+                </div>
+                <div className="relative">
+                    <Input
+                        id="password"
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Enter Password"
+                        required
+                        aria-required="true"
+                        className="peer block w-full border border-gray-300 rounded-md p-3 focus:border-none focus:outline-none"
+                    />
+                </div>
 
-        {/* Google signIn */}
+                {error && (
+                    <div className="text-left w-fit py-1 px-3 rounded-md text-sm text-white bg-red-500">
+                        {error}
+                    </div>
+                )}
 
-        <Button
-          onClick={() =>
-            signIn("google", {
-              callbackUrl: "/", // 👈 redirect after successful login
-            })
-          }
-          variant="outline"
-          className="w-full flex items-center justify-center gap-2 cursor-pointer"
-        >
-          <FaGoogle className="h-5 w-5" />
-          <span>Continue with Google</span>
-        </Button>
+                <div className="text-right">
+                    <Link
+                        href="#"
+                        className="text-sm text-violet-600 hover:underline"
+                    >
+                        Forgot your password?
+                    </Link>
+                </div>
+                <Button
+                    type="submit"
+                    className="w-full cursor-pointer bg-violet-500 hover:bg-violet-600"
+                >
+                    Sign Up
+                </Button>
+                <div className="relative text-center text-sm">
+                    <span className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t border-gray-300" />
+                    </span>
+                    <span className="relative bg-muted px-2 text-gray-500">
+                        Or continue with
+                    </span>
+                </div>
 
-        {/* <Button
+                {/* Google signIn */}
+
+                <Button
+                    onClick={() =>
+                        signIn("google", {
+                            callbackUrl: "/", // 👈 redirect after successful login
+                        })
+                    }
+                    variant="outline"
+                    className="w-full flex items-center justify-center gap-2 cursor-pointer"
+                >
+                    <FaGoogle className="h-5 w-5" />
+                    <span>Continue with Google</span>
+                </Button>
+
+                {/* <Button
           onClick={() => signIn("google")}
           variant="outline"
           className="w-full flex items-center justify-center gap-2 cursor-pointer"
@@ -172,13 +176,13 @@ export function SignupForm({
           <FaGoogle className="h-5 w-5" />
           <span>Continue with Google</span>
         </Button> */}
-      </div>
-      <div className="mt-4 text-center text-sm text-gray-600">
-        Already have an account?{" "}
-        <Link href="/login" className="text-violet-600 hover:underline">
-          Log in
-        </Link>
-      </div>
-    </form>
-  );
+            </div>
+            <div className="mt-4 text-center text-sm text-gray-600">
+                Already have an account?{" "}
+                <Link href="/login" className="text-violet-600 hover:underline">
+                    Log in
+                </Link>
+            </div>
+        </form>
+    );
 }
