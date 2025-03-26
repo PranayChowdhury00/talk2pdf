@@ -1,11 +1,11 @@
 "use client";
 
-import { scrollToBottom, initialMessages } from "@/lib/utils";
+import { initialMessages } from "@/lib/utils";
 import { ChatLine } from "./chat-line";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Spinner } from "./ui/spinner";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 // Message Type (Since we're not using the external package)
 interface Message {
