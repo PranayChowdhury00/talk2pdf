@@ -7,7 +7,6 @@ import { Button } from "./ui/button";
 import { Spinner } from "./ui/spinner";
 import { useRef, useState } from "react";
 
-
 // Message Type (Since we're not using the external package)
 export interface Message {
   id: string;
@@ -70,7 +69,7 @@ export function Chat() {
 
     // Add AI message
     const newAIMessage: Message = {
-      id: Date.now().toString(),
+      id: Date.now(),
       role: "assistant",
       content: aiResponse,
     };
@@ -82,7 +81,7 @@ export function Chat() {
     <div className="rounded-2xl border h-[95vh] flex flex-col justify-between">
       <div className="p-6 overflow-auto" ref={containerRef}>
         {messages.map(({ id, role, content }: Message) => (
-          <ChatLine key={id} role={role} content={content} sources={[]} />
+          <ChatLine key={id} role={role} content={content} />
         ))}
       </div>
 

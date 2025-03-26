@@ -30,10 +30,6 @@ interface ChatLineProps extends Partial<Message> {
   sources: string[];
 }
 
-interface CustomComponents {
-  a: React.ElementType; // Define a custom component type for links
-}
-
 export function ChatLine({
   role = "assistant",
   content,
@@ -43,12 +39,6 @@ export function ChatLine({
     return null;
   }
   const formattedMessage = convertNewLines(content);
-
-  const customComponents: CustomComponents = {
-    a: ({ ...props }) => (
-      <a {...props} target="_blank" rel="noopener noreferrer" />
-    ),
-  };
 
   return (
     <div>
@@ -75,7 +65,7 @@ export function ChatLine({
                   <AccordionItem value={`source-${index}`} key={index}>
                     <AccordionTrigger>{`Source ${index + 1}`}</AccordionTrigger>
                     <AccordionContent>
-                    <ReactMarkdown components={customComponents}>
+                      <ReactMarkdown linkTarget="_blank">
                         {formattedText(source)}
                       </ReactMarkdown>
                     </AccordionContent>
