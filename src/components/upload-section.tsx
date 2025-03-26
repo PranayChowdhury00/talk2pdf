@@ -83,7 +83,7 @@ export default function UploadSection() {
                     {files.map((file, index) => (
                         <li
                             key={index}
-                            className="p-2 bg-gray-100 rounded-md my-2 text-sm"
+                            className="p-2 bg-gray-700 rounded-md my-2 text-sm"
                         >
                             {file.name}
                         </li>
