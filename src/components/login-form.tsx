@@ -33,7 +33,8 @@ export function LoginForm({
                         htmlFor="email"
                         className="absolute left-3 top-3 text-gray-500 transition-all duration-200 
                         peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
-                        peer-focus:-top-3  px-2 peer-focus:bg-muted"
+                        peer-focus:-top-3 peer-focus:text-sm peer-focus:bg-muted
+                        peer-[&:not(:placeholder-shown)]:-top-3 peer-[&:not(:placeholder-shown)]:text-sm peer-[&:not(:placeholder-shown)]:bg-muted px-2"
                     >
                         Email
                     </Label>
@@ -51,7 +52,8 @@ export function LoginForm({
                         htmlFor="password"
                         className="absolute left-3 top-3 text-gray-500 transition-all duration-200 
                         peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
-                        peer-focus:-top-3  px-2 peer-focus:bg-muted"
+                        peer-focus:-top-3 peer-focus:text-sm peer-focus:bg-muted
+                        peer-[&:not(:placeholder-shown)]:-top-3 peer-[&:not(:placeholder-shown)]:text-sm peer-[&:not(:placeholder-shown)]:bg-muted px-2"
                     >
                         Password
                     </Label>
