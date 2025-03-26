@@ -8,7 +8,7 @@ import { Input } from "./ui/input";
 import { Spinner } from "./ui/spinner";
 
 // Message Type (Since we're not using the external package)
-interface Message {
+export interface Message {
     id: string;
     role: "user" | "assistant";
     content: string;
@@ -48,18 +48,18 @@ export function Chat() {
         }
     };
 
-    // Handle Form Submission
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         if (!input.trim()) return;
 
-        // Add user message
+        // Create new user message
         const newUserMessage: Message = {
-            id: crypto.randomUUID(),
+            id: Date.now().toString(),
             role: "user",
             content: input,
         };
+
+        // Add user message to chat
         setMessages((prev) => [...prev, newUserMessage]);
         setInput("");
         setIsLoading(true);
@@ -69,7 +69,7 @@ export function Chat() {
 
         // Add AI message
         const newAIMessage: Message = {
-            id: crypto.randomUUID(),
+            id: Date.now().toString(),
             role: "assistant",
             content: aiResponse,
         };
@@ -81,7 +81,12 @@ export function Chat() {
         <div className="rounded-2xl border h-[95vh] flex flex-col justify-between">
             <div className="p-6 overflow-auto" ref={containerRef}>
                 {messages.map(({ id, role, content }: Message) => (
-                    <ChatLine key={id} role={role} content={content} />
+                    <ChatLine
+                        key={id}
+                        role={role}
+                        content={content}
+                        sources={[]}
+                    />
                 ))}
             </div>
 

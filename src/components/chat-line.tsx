@@ -4,6 +4,11 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
+// import { Message } from "ai/react";
+import { formattedText } from "@/lib/utils";
+import ReactMarkdown from "react-markdown";
+import { Message } from "./chat";
+
 import {
     Card,
     CardContent,
@@ -12,9 +17,6 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { formattedText } from "@/lib/utils";
-import { Message } from "ai/react";
-import ReactMarkdown from "react-markdown";
 import Balancer from "react-wrap-balancer";
 
 const convertNewLines = (text: string) =>
@@ -29,6 +31,10 @@ interface ChatLineProps extends Partial<Message> {
     sources: string[];
 }
 
+interface CustomComponents {
+    a: React.ElementType; // Define a custom component type for links
+}
+
 export function ChatLine({
     role = "assistant",
     content,
@@ -38,6 +44,12 @@ export function ChatLine({
         return null;
     }
     const formattedMessage = convertNewLines(content);
+
+    const customComponents: CustomComponents = {
+        a: ({ ...props }) => (
+            <a {...props} target="_blank" rel="noopener noreferrer" />
+        ),
+    };
 
     return (
         <div>
@@ -73,7 +85,9 @@ export function ChatLine({
                                             index + 1
                                         }`}</AccordionTrigger>
                                         <AccordionContent>
-                                            <ReactMarkdown linkTarget="_blank">
+                                            <ReactMarkdown
+                                                components={customComponents}
+                                            >
                                                 {formattedText(source)}
                                             </ReactMarkdown>
                                         </AccordionContent>
