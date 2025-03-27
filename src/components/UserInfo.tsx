@@ -15,24 +15,21 @@ export default function UserInfo() {
 
     return (
         <div className="p-4">
-            <div>
+            <div className="flex items-center gap-2 border rounded-2xl p-2">
                 <Image
                     src={session?.user?.image || profile}
-                    width={60}
-                    height={60}
+                    width={30}
+                    height={15}
                     alt="User profile"
                     className="rounded-full"
                 />
-            </div>
-            <div className="font-bold ">
-                Name:{" "}
-                <span className="text-violet-500">{session?.user?.name}</span>{" "}
-                <br />
+                <span className="font-bold">{session?.user?.name}</span> <br />
                 {/* Email: <span>{session?.user?.email}</span> */}
             </div>
             <Button
+                variant="outline"
                 onClick={() => signOut()}
-                className="bg-red-500 text-white font-bold mt-2 w-full"
+                className="font-bold mt-2 w-full cursor-pointer"
             >
                 <BiLogOut /> Log Out
             </Button>
