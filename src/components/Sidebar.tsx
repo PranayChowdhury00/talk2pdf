@@ -247,18 +247,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                         <h2 className="text-center text-violet-500 dark:text-violet-400 font-semibold mb-4">
                             Sign in for free to save your chat history
                         </h2>
-                        <Button
-                            asChild
-                            className="w-full bg-violet-600 hover:bg-violet-700 text-white"
-                        >
-                            <Link
-                                href="/login"
-                                className="flex items-center justify-center"
-                            >
+                        <Link href="/login" className="w-full">
+                            <Button variant="outline" className="w-full">
                                 <LogIn className="mr-2 h-4 w-4" />
                                 <span>Login</span>
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     </div>
                 )}
             </div>
