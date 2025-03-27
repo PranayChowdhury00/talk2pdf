@@ -42,7 +42,7 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
-    const { setTheme, theme, systemTheme } = useTheme();
+    const { setTheme, theme } = useTheme();
     const [mounted, setMounted] = React.useState(false);
     const [folders, setFolders] = React.useState<string[]>([]);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
