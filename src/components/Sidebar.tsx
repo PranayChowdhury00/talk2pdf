@@ -14,7 +14,6 @@ import {
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import * as React from "react";
-import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +30,10 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+// Next auth
+// import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import UserInfo from "./UserInfo";
 
 interface SidebarProps {
     isOpen?: boolean;
@@ -43,7 +46,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [newFolderName, setNewFolderName] = React.useState("");
     const [isUploading, setIsUploading] = React.useState(false);
-    const router = useRouter();
 
     const handleNewChat = () => {
         setIsUploading(true);
@@ -55,8 +57,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
             if (file) {
                 const fileURL = URL.createObjectURL(file);
                 window.open(fileURL, "_blank");
-
-                router.push("/chat");
             }
             setIsUploading(false);
         };
@@ -82,6 +82,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
         const updatedFolders = folders.filter((_, i) => i !== index);
         setFolders(updatedFolders);
     };
+
+    // =====
+    // const { data: session } = useSession();
+    const { status } = useSession();
 
     return (
         <>
@@ -215,24 +219,31 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                     </ul>
                 </div>
 
-                {/* Chat History Section */}
-                <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-                    <h2 className="text-center text-violet-500 dark:text-violet-400 font-semibold mb-4">
-                        Sign in for free to save your chat history
-                    </h2>
-                    <Button
-                        asChild
-                        className="w-full bg-violet-600 hover:bg-violet-700 text-white"
-                    >
-                        <Link
-                            href="/login"
-                            className="flex items-center justify-center"
+                {/* User info and login Section */}
+
+                {status === "authenticated" ? (
+                    <div>
+                        <UserInfo></UserInfo>
+                    </div>
+                ) : (
+                    <div className="p-4 border-t border-gray-200 dark:border-gray-800">
+                        <h2 className="text-center text-violet-500 dark:text-violet-400 font-semibold mb-4">
+                            Sign in for free to save your chat history
+                        </h2>
+                        <Button
+                            asChild
+                            className="w-full bg-violet-600 hover:bg-violet-700 text-white"
                         >
-                            <LogIn className="mr-2 h-4 w-4" />
-                            <span>Login</span>
-                        </Link>
-                    </Button>
-                </div>
+                            <Link
+                                href="/login"
+                                className="flex items-center justify-center"
+                            >
+                                <LogIn className="mr-2 h-4 w-4" />
+                                <span>Login</span>
+                            </Link>
+                        </Button>
+                    </div>
+                )}
             </div>
 
             {/* Folder Name Modal */}
