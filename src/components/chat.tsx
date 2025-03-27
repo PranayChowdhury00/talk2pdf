@@ -72,7 +72,7 @@ export function Chat() {
 
         // Add AI message
         const newAIMessage: Message = {
-            id: Date.now().toString(),
+            id: crypto.randomUUID(),
             role: "assistant",
             content: aiResponse,
         };
