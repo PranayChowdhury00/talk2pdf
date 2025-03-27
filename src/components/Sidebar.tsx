@@ -1,20 +1,5 @@
 "use client";
 
-import {
-    File,
-    FolderPlus,
-    Loader2,
-    LogIn,
-    Moon,
-    Sun,
-    Trash2,
-    Upload,
-    X,
-} from "lucide-react";
-import { useTheme } from "next-themes";
-import Link from "next/link";
-import * as React from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -30,6 +15,22 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import {
+    File,
+    FolderPlus,
+    Loader2,
+    LogIn,
+    MonitorCog,
+    Moon,
+    Sun,
+    Trash2,
+    Upload,
+    X,
+} from "lucide-react";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import * as React from "react";
 // Next auth
 // import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
@@ -41,12 +42,18 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
-    const { setTheme } = useTheme();
+    const { setTheme, theme, systemTheme } = useTheme();
+    const [mounted, setMounted] = React.useState(false);
     const [folders, setFolders] = React.useState<string[]>([]);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [newFolderName, setNewFolderName] = React.useState("");
     const [isUploading, setIsUploading] = React.useState(false);
     const router = useRouter();
+
+    // Add mounting check
+    React.useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const handleNewChat = () => {
         setIsUploading(true);
@@ -121,8 +128,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                                     size="icon"
                                     className="h-8 w-8 border-gray-200 dark:border-gray-800"
                                 >
-                                    <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                                    <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                                    {mounted &&
+                                        (theme === "system" ? (
+                                            <MonitorCog className="h-[1.2rem] w-[1.2rem]" />
+                                        ) : theme === "dark" ? (
+                                            <Moon className="h-[1.2rem] w-[1.2rem]" />
+                                        ) : (
+                                            <Sun className="h-[1.2rem] w-[1.2rem]" />
+                                        ))}
                                     <span className="sr-only">
                                         Toggle theme
                                     </span>
@@ -147,6 +160,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                                 <DropdownMenuItem
                                     onClick={() => setTheme("system")}
                                 >
+                                    <MonitorCog className="mr-2 h-4 w-4" />
                                     <span>System</span>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
