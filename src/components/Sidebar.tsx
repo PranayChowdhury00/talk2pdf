@@ -14,7 +14,7 @@ import {
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import * as React from "react";
-
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -46,6 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [newFolderName, setNewFolderName] = React.useState("");
     const [isUploading, setIsUploading] = React.useState(false);
+    const router = useRouter();
 
     const handleNewChat = () => {
         setIsUploading(true);
@@ -57,6 +58,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
             if (file) {
                 const fileURL = URL.createObjectURL(file);
                 window.open(fileURL, "_blank");
+
+                router.push("/chat");
             }
             setIsUploading(false);
         };

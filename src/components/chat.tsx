@@ -2,10 +2,12 @@
 
 import { initialMessages } from "@/lib/utils";
 import { useRef, useState } from "react";
+
 import { ChatLine } from "./chat-line";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Spinner } from "./ui/spinner";
+
 
 // Message Type (Since we're not using the external package)
 export interface Message {
@@ -52,6 +54,7 @@ export function Chat() {
         e.preventDefault();
         if (!input.trim()) return;
 
+
         // Create new user message
         const newUserMessage: Message = {
             id: Date.now().toString(),
@@ -69,13 +72,14 @@ export function Chat() {
 
         // Add AI message
         const newAIMessage: Message = {
-            id: Date.now().toString(),
+            id: crypto.randomUUID(),
             role: "assistant",
             content: aiResponse,
         };
         setMessages((prev) => [...prev, newAIMessage]);
         setIsLoading(false);
     };
+
 
     return (
         <div className="rounded-2xl border h-[95vh] flex flex-col justify-between">
