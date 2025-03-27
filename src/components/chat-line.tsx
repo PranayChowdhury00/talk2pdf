@@ -45,8 +45,10 @@ export function ChatLine({
     }
     const formattedMessage = convertNewLines(content);
 
-  return (
-    <div>
+
+    const customComponents: CustomComponents = {
+        a: ({ ...props }) => (
+            <a {...props} target="_blank" rel="noopener noreferrer" />
         ),
     };
 
