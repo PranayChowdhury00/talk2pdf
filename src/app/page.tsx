@@ -5,28 +5,28 @@ import UploadSection from "@/components/upload-section";
 // import { fetchDeepSeek } from "@/lib/openrouter";
 
 export default function Home() {
-    // const getAIResponse = async () => {
-    //   console.log("Fetching AI response...");
-    //     const response = await fetchDeepSeek("Write me a code for priting a triangle using python.");
-    //     console.log(response);
-    //   };
+  // const getAIResponse = async () => {
+  //   console.log("Fetching AI response...");
+  //     const response = await fetchDeepSeek("Write me a code for priting a triangle using python.");
+  //     console.log(response);
+  //   };
 
-    //   getAIResponse();
+  //   getAIResponse();
 
-    return (
-        <>
-            <div className="bg-muted">
-                <div>
-                    <Header />
-                </div>
-                <div className="flex justify-center mt-10 mb-10">
-                    <UploadSection />
-                </div>
-                <div className="">
-                    <Testimonials />
-                </div>
-                <Footer />
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className="bg-muted">
+        <div>
+          <Header />
+        </div>
+        <div className="flex justify-center mt-10 mb-10">
+          <UploadSection />
+        </div>
+        <div className="">
+          <Testimonials />
+        </div>
+        <Footer />
+      </div>
+    </>
+  );
 }
