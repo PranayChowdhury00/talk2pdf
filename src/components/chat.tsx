@@ -1,13 +1,12 @@
 "use client";
 
 import { initialMessages } from "@/lib/utils";
+import { usePDF } from "@/provider/pdfContext";
 import { useRef, useState } from "react";
-
 import { ChatLine } from "./chat-line";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Spinner } from "./ui/spinner";
-
 
 // Message Type (Since we're not using the external package)
 export interface Message {
@@ -18,26 +17,24 @@ export interface Message {
 
 export function Chat() {
     const containerRef = useRef<HTMLDivElement | null>(null);
-
-    // Local State for Chat
     const [messages, setMessages] = useState<Message[]>(initialMessages);
     const [input, setInput] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    // Scroll to Bottom Effect
-    //   useEffect(() => {
-    //     setTimeout(() => scrollToBottom(containerRef), 100);
-    //   }, [messages]);
+    const { pdfText } = usePDF();
 
     // Send Message to AI Model (Replace with your API)
     const fetchAIResponse = async (userMessage: string) => {
         try {
+            const prompt = pdfText
+                ? `Based on the following PDF content:\n\n${pdfText}\n\nAnswer the following question:\n${userMessage}`
+                : userMessage;
+
             const response = await fetch("/api/chat", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ message: userMessage }),
+                body: JSON.stringify({ message: prompt }),
             });
 
             if (!response.ok) throw new Error("Failed to get AI response");
@@ -53,7 +50,6 @@ export function Chat() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!input.trim()) return;
-
 
         // Create new user message
         const newUserMessage: Message = {
@@ -79,7 +75,6 @@ export function Chat() {
         setMessages((prev) => [...prev, newAIMessage]);
         setIsLoading(false);
     };
-
 
     return (
         <div className="rounded-2xl border h-[95vh] flex flex-col justify-between">
