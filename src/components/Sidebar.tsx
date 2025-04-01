@@ -236,7 +236,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
               Sign in for free to save your chat history
             </h2>
             <Link href="/login" className="w-full">
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full cursor-pointer">
                 <LogIn className="mr-2 h-4 w-4" />
                 <span>Login</span>
               </Button>
