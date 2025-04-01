@@ -36,7 +36,7 @@ export default function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="p-6 rounded-2xl bg-card shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-2 border-2 border-gray-600"
+              className="p-6 rounded-2xl bg-card shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-2 border-2 dark:border-gray-600"
             >
               <Image
                 width={64}
