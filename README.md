@@ -4,6 +4,9 @@
 
 Talk2PDF is an AI-powered chat application that revolutionizes how users interact with PDF documents using natural language. The platform streamlines document analysis, summarization, and collaboration across multiple sectors by providing instant, context-aware answers, multilingual support, and advanced file management capabilities.
 
+## Live Link: 
+https://talk2pdf-ten.vercel.app/
+
 ## 🚀 Key Features
 
 ### 🤖 AI-Powered Document Interaction
