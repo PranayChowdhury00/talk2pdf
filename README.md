@@ -17,6 +17,8 @@ https://talk2pdf-ten.vercel.app/
 
 ## UI 
 ![Alt Text](https://github.com/PranayChowdhury00/talk2pdf/blob/main/Screenshot%202025-05-16%20230358.png?raw=true)
+![Alt Text](https://github.com/PranayChowdhury00/talk2pdf/blob/main/Screenshot%202025-05-16%20230420.png?raw=true)
+
 
 
 ### 📝 Customizable AI Summarization
